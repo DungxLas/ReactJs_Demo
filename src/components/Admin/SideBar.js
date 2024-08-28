@@ -5,42 +5,56 @@ import { DiReact } from "react-icons/di";
 import { MdDashboard } from "react-icons/md";
 import "./SideBar.scss";
 import "./Admin.scss";
+import { Link } from "react-router-dom";
 
-const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
+const MySideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
   return (
-    <>
-      <Sidebar
-        image={sidebarBg}
-        backgroundColor="rgba(255, 0, 0, 0.1)"
-        collapsed={collapsed}
-        toggled={toggled}
-        breakPoint="md"
-        onToggle={handleToggleSidebar}
-        className="pro-sidebar"
-      >
-        <div
-          style={{
-            padding: "24px",
-            textTransform: "uppercase",
-            fontWeight: "bold",
-            fontSize: 14,
-            letterSpacing: "1px",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-          }}
-          className="pro-sidebar-header"
-        >
+    <Sidebar
+      image={sidebarBg}
+      backgroundColor="rgba(0, 0, 0, 0.1)"
+      collapsed={collapsed}
+      toggled={toggled}
+      breakPoint="md"
+      onToggle={handleToggleSidebar}
+    >
+      <div className="pro-sidebar">
+        <div className="pro-sidebar-header">
           <DiReact size={"3em"} color={"00bfff"} />
           <span>Admin Here</span>
         </div>
+
         <div className="pro-sidebar-content">
-          <Menu iconShape="circle">
-            <MenuItem icon={<MdDashboard />}>Dashboard</MenuItem>
+          <Menu
+            //iconShape="circle"
+            menuItemStyles={{
+              button: {
+                "&:hover": {
+                  backgroundColor: "rgba(0, 0, 0, 0.3)",
+                },
+              },
+            }}
+          >
+            <MenuItem icon={<MdDashboard />} component={<Link to="admins" />}>
+              Dashboard
+            </MenuItem>
           </Menu>
-          <Menu iconShape="circle">
+          <Menu
+            //iconShape="circle"
+            menuItemStyles={{
+              button: {
+                "&:hover": {
+                  backgroundColor: "rgba(0, 0, 0, 0.3)",
+                },
+              },
+              subMenuContent: {
+                backgroundColor: "rgba(0, 0, 0, 0.3)",
+              },
+            }}
+          >
             <SubMenu icon={<FaGem />} title="Features">
-              <MenuItem> 1</MenuItem>
+              <MenuItem component={<Link to="manage-users" />}>
+                Manage Users
+              </MenuItem>
               <MenuItem> 2</MenuItem>
               <MenuItem> 3</MenuItem>
             </SubMenu>
@@ -73,9 +87,9 @@ const SideBar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
             </a>
           </div>
         </div>
-      </Sidebar>
-    </>
+      </div>
+    </Sidebar>
   );
 };
 
-export default SideBar;
+export default MySideBar;
